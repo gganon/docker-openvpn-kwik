@@ -1,3 +1,25 @@
+This is a fork of [kylemanna/docker-openvpn](https://github.com/kylemanna/docker-openvpn) with some script modifications to make it possible to initialize and run OpenVPN all at once during startup without needing to create a persistent volume and run  commands manually.
+
+This is for a very sepcific use case of mine and has drawbacks. It can't be used well with a persistent docker volume because the modified scripts will break (I've modified them to skip prompts only on first run). This works for me since my use case does not involve a persistent volume. It's a fresh run every time.
+
+The modified scripts are also hardcoded to run OpenVPN with TCP every time.
+
+Here's how you can start the container:
+
+```sh
+docker build -t docker-openvpn-kwik .
+
+docker run --rm \
+  --name openvpn \
+  -e COMMON_NAME=openvpn.mysite.com \
+  --cap-add=NET_ADMIN \
+  -p 443:1194/tcp \
+  -it \
+  docker-openvpn-kwik
+```
+
+You'll still need to `docker run` commands to create a user and get an ovpn config as described in the original README below
+
 # OpenVPN for Docker
 
 [![Build Status](https://travis-ci.org/kylemanna/docker-openvpn.svg)](https://travis-ci.org/kylemanna/docker-openvpn)
