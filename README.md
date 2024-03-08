@@ -18,7 +18,12 @@ docker run --rm \
   docker-openvpn-kwik
 ```
 
-You'll still need to `docker run` commands to create a user and get an ovpn config as described in the original README below
+You'll still need to `docker exec` commands to create a user and get an ovpn config as described in the original README below
+
+```sh
+docker exec openvpn bash -c "printf 'yes\n' | easyrsa build-client-full CLIENTNAME nopass"
+docker exec openvpn ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn
+```
 
 # OpenVPN for Docker
 
