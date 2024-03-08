@@ -1,0 +1,2 @@
+#! /bin/bash
+bash -c 'ovpn_genconfig -u tcp://$COMMON_NAME:443 && ovpn_initpki nopass $COMMON_NAME && ovpn_run'
